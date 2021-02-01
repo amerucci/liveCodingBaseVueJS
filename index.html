@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveCoding - on découvre Vue par l'exemple</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="todolist">
+
+        <input type="text" v-model="tache">
+
+        <button v-on:click="ajouterTache()">Ajouter</button>
+        <transition name="slide-fade">
+            <p v-if="taches.length > 0">Vous avez actuellement {{ taches.length }} tache<span v-if="taches.length > 1">s</span> dans votre todoList</p>
+        </transition>
+
+        <ul>
+            <li v-for="(tache, index) in taches" class="tache" v-bind:class="tache.class">{{ tache.tache }}
+                <button v-on:click="cestFait(index, tache.tache )">C'est fait</button>
+                <button v-on:click="supprimerTache(index)">Supprimer</button></li>
+        </ul>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+</body>
+
+</html>
