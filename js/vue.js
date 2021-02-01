@@ -4,7 +4,8 @@ new Vue({
         tache: "",
         taches: [],
         tachesRealisee:0,
-        firstutils:true,
+        firstutils:false,
+        nbTaches:0
        
     },
   
@@ -17,11 +18,18 @@ new Vue({
             if (localStorage.getItem('tachesrealisees'))
             this.tachesRealisee = JSON.parse(localStorage.getItem('tachesrealisees'));
 
-   
+           
+            this.nbTaches=this.taches.length    
+
+            if(this.nbTaches==0)
+            this.firstutils=true
+               
+            
          
         
            
     },
+   
     
     methods: {
         ajouterTache() {
@@ -34,14 +42,20 @@ new Vue({
             localStorage.setItem('tableauDesTaches', JSON.stringify(this.taches))
             this.tache = ""
             this.nbretache()
-            this.firstutils = false
+            this.firstutils=false
+            
         },
         //On supprime l'élement sur lequel on a cliqué grâce à la récupération de l'index
         supprimerTache(queltache) {
             this.taches.splice(queltache, 1)
             // On met à jour le localStorage
             localStorage.setItem('tableauDesTaches', JSON.stringify(this.taches))
+            this.tachesRealisee -= 1
+            this.nbTaches -= 1
+            localStorage.setItem('tachesrealisees', JSON.stringify(this.tachesRealisee ))
+            this.firstutils=false
         },
+
         cestFait(queltache, titredelatache) {
             //On va cibler la tache sur laquelle on a cliqué
             latache = document.getElementsByClassName('tache')[queltache]
@@ -55,12 +69,13 @@ new Vue({
             this.tachesRealisee += 1
             localStorage.setItem('tachesrealisees', JSON.stringify(this.tachesRealisee ))
             this.nbretache()
+            this.firstutils=false
 
         }, 
         //On va calculer le nombre réel de taches a effectuer en se basant sur le clic du bouton fait
         nbretache(){
-            arraytache = document.getElementsByClassName('tache fait')
-            this.nbTaches=this.taches.length-arraytache.length
+            
+            this.nbTaches=this.taches.length
         }
        
         
