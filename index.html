@@ -18,13 +18,16 @@
 
         <button v-on:click="ajouterTache()">Ajouter</button>
         <transition name="slide-fade">
-            <p v-if="taches.length > 0">Vous avez actuellement {{ taches.length }} tache<span v-if="taches.length > 1">s</span> dans votre todoList</p>
+            <p v-if="nbTaches > 0">Vous avez actuellement {{ nbTaches }} tache<span v-if="nbTaches > 1">s</span> dans votre todoList</p>
+            <p v-if="firstutils == true && nbTaches == 0">Bienvenue dans votre todoList</p>
+            <p v-else="nbTaches == 0">Félicitation vous êtes à jour dans vos taches</p>
+            
         </transition>
 
         <ul>
             <li v-for="(tache, index) in taches" class="tache" v-bind:class="tache.class">{{ tache.tache }}
-                <button v-on:click="cestFait(index, tache.tache )">C'est fait</button>
-                <button v-on:click="supprimerTache(index)">Supprimer</button></li>
+                <button v-on:click="cestFait(index, tache.tache )" v-if="tache.class!='fait'">C'est fait</button>
+                <button v-on:click="supprimerTache(index)" v-if="tache.class=='fait'">Supprimer</button></li>
         </ul>
 
     </div>

@@ -3,12 +3,26 @@ new Vue({
     data: {
         tache: "",
         taches: [],
+        tachesRealisee:0,
+        firstutils:true,
+       
     },
+  
+
     mounted() {
         //On récupère ce qu'il y a déjà dans le localStorage pour l'injecter dans notre tableau taches
         if (localStorage.getItem('tableauDesTaches'))
             this.taches = JSON.parse(localStorage.getItem('tableauDesTaches'));
+
+            if (localStorage.getItem('tachesrealisees'))
+            this.tachesRealisee = JSON.parse(localStorage.getItem('tachesrealisees'));
+
+   
+         
+        
+           
     },
+    
     methods: {
         ajouterTache() {
             if (this.tache != "")
@@ -19,6 +33,8 @@ new Vue({
             //On sauvegarde notre tableau des taches dans le local storage
             localStorage.setItem('tableauDesTaches', JSON.stringify(this.taches))
             this.tache = ""
+            this.nbretache()
+            this.firstutils = false
         },
         //On supprime l'élement sur lequel on a cliqué grâce à la récupération de l'index
         supprimerTache(queltache) {
@@ -30,12 +46,23 @@ new Vue({
             //On va cibler la tache sur laquelle on a cliqué
             latache = document.getElementsByClassName('tache')[queltache]
             latache.classList.toggle('fait')
-            this.taches.splice(queltache, 1, {
+                        this.taches.splice(queltache, 1, {
                 tache: titredelatache,
-                class: 'fait'
+                class: 'fait',
+                tachesRealisee : this.tachesRealisee
             })
             localStorage.setItem('tableauDesTaches', JSON.stringify(this.taches))
+            this.tachesRealisee += 1
+            localStorage.setItem('tachesrealisees', JSON.stringify(this.tachesRealisee ))
+            this.nbretache()
 
+        }, 
+        //On va calculer le nombre réel de taches a effectuer en se basant sur le clic du bouton fait
+        nbretache(){
+            arraytache = document.getElementsByClassName('tache fait')
+            this.nbTaches=this.taches.length-arraytache.length
         }
+       
+        
     }
 })
