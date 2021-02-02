@@ -7,7 +7,8 @@ new Vue({
         firstutils:false,
         nbTaches:0,
         datedujour: "",
-        nbclick:""
+        nbclick:"",
+        isEditing:false
        
     },
     created() {
@@ -34,6 +35,15 @@ new Vue({
         
            
     },
+    computed: {
+        buttonMessage: function () {
+          switch (this.docState) {
+            case 'saved': return 'Modifier'
+            case 'edited': return 'Sauver'
+            case 'editing': return 'Annuler'
+          }
+        }
+      },
    
     
     methods: {
@@ -64,7 +74,7 @@ new Vue({
         cestFait(queltache, titredelatache) {
             //On va cibler la tache sur laquelle on a cliqué
             latache = document.getElementsByClassName('tache')[queltache]
-            latache.classList.toggle('fait')
+     
                         this.taches.splice(queltache, 1, {
                 tache: titredelatache,
                 class: 'fait',
@@ -96,6 +106,8 @@ new Vue({
 
             this.datedujour = fullDate;
         },
+
+        
 
 
 
