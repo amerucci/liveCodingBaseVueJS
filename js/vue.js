@@ -5,8 +5,12 @@ new Vue({
         taches: [],
         tachesRealisee:0,
         firstutils:false,
-        nbTaches:0
+        nbTaches:0,
+        datedujour: ""
        
+    },
+    created() {
+        this.getNow()
     },
   
 
@@ -76,6 +80,20 @@ new Vue({
         nbretache(){
             
             this.nbTaches=this.taches.length
+        },
+
+        getNow() {
+
+            const monthNames = ["Janv.", "Févr.", "Mars", "Avril", "Mai", "Juin", "Juill.", "Août", "Sept.", "Oct.", "Nov.", "Déc."];
+
+            const d = new Date();
+            var dd = String(d.getDate()).padStart(2, '0');
+            var mm = String(d.getMonth() + 1).padStart(2, '0');
+            var yyyy = d.getFullYear();
+            var fullDate = +dd +" " + monthNames[d.getMonth()] +" "+ yyyy;
+         
+
+            this.datedujour = fullDate;
         }
        
         

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveCoding - on découvre Vue par l'exemple</title>
+    <title>Les listes de Rose</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -19,7 +19,11 @@
     <div id="todolist" class="container">
         <div id="header">
             <img src="img/header.jpg" alt="" class="img-fluid">
-            <div class="todolisttitre">Les listes de rose</div>
+            <div class="overlay"></div>
+            <div class="todolisttitre">Les listes de rose
+                <div id="datedujour">{{ datedujour }}</div>
+            </div>
+            
         </div>
 
         <input type="text form-control form-control-lg" v-model="tache">
