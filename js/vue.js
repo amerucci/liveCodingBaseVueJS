@@ -6,7 +6,8 @@ new Vue({
         tachesRealisee:0,
         firstutils:false,
         nbTaches:0,
-        datedujour: ""
+        datedujour: "",
+        nbclick:""
        
     },
     created() {
@@ -94,7 +95,10 @@ new Vue({
          
 
             this.datedujour = fullDate;
-        }
+        },
+
+
+
        
         
     }

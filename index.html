@@ -26,7 +26,7 @@
             
         </div>
 
-        <input type="text form-control form-control-lg" v-model="tache">
+        <input @keypress.enter="ajouterTache()" type="text form-control form-control-lg" v-model="tache">
 
         <button v-on:click="ajouterTache()" class="addbtn">+</button>
        
@@ -40,10 +40,17 @@
         
 
         <ul>
-            <li v-for="(tache, index) in taches" >
-                <span class="tache " v-bind:class="tache.class"> {{ tache.tache }}</span>
+            <transition-group name="insert" tag="ul" class="list">
+            <li v-for="(tache, index) in taches" v-bind:key="index" >
+              
+                <span class="tache" v-bind:class="tache.class"> {{ tache.tache }}</span>
                 <i class="fas fa-ban" v-on:click="supprimerTache(index)" v-if="tache.class=='fait'"></i>
                 <i class="far fa-square" v-on:click="cestFait(index, tache.tache )" v-if="tache.class!='fait'"></i>
+            </li>
+            </transition-group>
+
+
+            
               
         </ul>
 
